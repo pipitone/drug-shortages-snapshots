@@ -8,9 +8,13 @@
 # two trailing heading rows for an empty "Discontinuations" table. The data is
 # also indented. We clean all this up. 
 #
+import httplib
 import mechanize
 br = mechanize.Browser()
 br.open('https://www.drugshortagescanada.ca/search')
 br.select_form('export')
-br.submit()
+try:
+    br.submit()
+except httplib.BadStatusLine, e:
+    print(e)
 open('export.csv', 'w').write(br.response().read())
