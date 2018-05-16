@@ -10,11 +10,19 @@
 #
 import httplib
 import mechanize
+SUBMIT_RETRIES = 3
+
 br = mechanize.Browser()
-br.open('https://www.drugshortagescanada.ca/search')
-br.select_form('export')
-try:
-    br.submit()
-except httplib.BadStatusLine, e:
-    print(e)
-open('export.csv', 'w').write(br.response().read())
+
+for i in range(SUBMIT_RETRIES):
+    try:
+        br.open('https://www.drugshortagescanada.ca/search')
+        br.select_form('export')
+        br.submit()
+        open('export.csv', 'w').write(br.response().read())
+        print("Export complete after {}/{} attempts.".format(i+1, SUBMIT_RETRIES))
+        break
+    except (httplib.BadStatusLine, mechanize.HTTPError) as e:
+        print("Attempt {}/{} failed.".format(i, SUBMIT_RETRIES))
+        print(e)
+
