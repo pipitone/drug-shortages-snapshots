@@ -46,6 +46,9 @@ for year in range(2017,2021):
                         data.extend(lines)
                 else: 
                     print("Unknown response read Year {} Month {} records".format(year, month))
+                    print response
+                    import sys
+                    sys.exit()
 
                 br.back()
             except (httplib.BadStatusLine, mechanize.HTTPError) as e:
