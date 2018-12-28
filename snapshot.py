@@ -12,6 +12,7 @@
 # the exported CSV files contains contatenated exports. Sorry.
 import httplib
 import mechanize
+import sys
 SUBMIT_RETRIES = 3
 
 data = []
@@ -36,9 +37,10 @@ for year in range(2017,2021):
 
                 response = br.response().read()
                 if "<html" in response: 
-                    # looks like HTML
                     print("HTML response for Year {} Month {} record export".format(year, month))
-                elif "Shortage reports," in response: 
+                    print response
+                    sys.exit()
+                elif "Shortage reports" in response: 
                     # looks like CSV
                     lines = response.split("\n")
                     if len(lines) > 5: 
@@ -47,7 +49,6 @@ for year in range(2017,2021):
                 else: 
                     print("Unknown response read Year {} Month {} records".format(year, month))
                     print response
-                    import sys
                     sys.exit()
 
                 br.back()
