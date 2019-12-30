@@ -1,6 +1,13 @@
 Canadian Drug Shortages Snapshots
 =================================
 
+> *Note: Decomissioned 2019-12-30* 
+> The Drug Shortages Canada website now exposes historical edits to the
+> shortage/discontinuation reports which makes this project unnecessary. 
+>
+> Unfortunately, the historical data is not exposed via the web API, but can
+> likely be easily scraped. 
+
 A repository of daily snapshots of the drugshortagescanada.ca data. 
 
 Why? Because that website only provides the current state of drug shortages, so
